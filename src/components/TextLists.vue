@@ -10,6 +10,7 @@
       <!-- Форма для додавання та виведення даних -->
 
       <div class="col-12">
+        <!-- Додавання данних -->
         <form class="mb-3">
           <div class="row">
             <div class="col-md-3 mb-3">
@@ -24,6 +25,7 @@
               <label class="form-label">Англійська</label>
               <input v-model="eng" type="text" class="form-control" />
             </div>
+            <!-- Список тегів -->
             <div class="col-md-2 mb-3">
               <label class="form-label">Тег</label>
               <select v-model="tag" class="form-select">
@@ -34,6 +36,7 @@
                 <option value="тег№3">тег№3</option>
               </select>
             </div>
+            <!-- Кнопка яка змінюється в залежності від додавання нового чи редагованого тексту -->
             <div class="col-md-2 mb-3">
               <button v-if="!updateState" @click="addText" type="button" class="btn btn-primary mt-4">
                 Додати
@@ -47,7 +50,7 @@
         </form>
 
 
-
+        <!-- Виведження таблиці данних -->
         <table class="table">
           <thead>
             <tr>
@@ -65,6 +68,7 @@
               <td>{{ Text.eng }}</td>
               <td>{{ Text.tag }}</td>
               <td>
+                <!-- Кнопки керування данними -->
                 <button :disabled="updateState" @click="updateText(Text)" class="btn btn-success mr-2">
                   Редагувати
                 </button>
@@ -90,9 +94,10 @@ export default {
   name: "TextLists",
 
   setup() {
+    // існуючі параметри даних
     const Texts = ref([]);
     const ukr = ref("");
-    const pol = ref(""); // новий параметр
+    const pol = ref(""); 
     const eng = ref("");
     const tag = ref("");
     const TextTemp = ref({});
@@ -109,7 +114,7 @@ export default {
         });
     });
 
-    // Створення
+    // Створення нових данних
 
     function addText() {
       if (!ukr.value || !pol.value || !eng.value || !tag.value) {
@@ -147,7 +152,7 @@ export default {
         .delete();
     }
 
-    // додавання в панель вводу
+    // перенести данні щоб їх відредагувати
 
     function updateText(TextTmp) {
       updateState.value = true;
@@ -158,7 +163,7 @@ export default {
       tag.value = TextTmp.tag;
     }
 
-    // додавання з панелі вводу в колекцію
+    // перенести редаговані данні назад в таблицю
 
     function updateText2() {
       let a = ukr.value;
@@ -195,7 +200,7 @@ export default {
       updateText2,
       updateState,
       ukr,
-      pol, // доданий параметр
+      pol, 
       eng,
       tag,
       TextTemp,
